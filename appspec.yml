@@ -1,15 +1,18 @@
 version: 0.0
 os: linux
 files:
-   - source: /
-     destination: /var/www/html
+  - source: /
+    destination: /var/www/html
 hooks:
-   BeforeInstall:
-    - location: scripts/installapache.sh
+  BeforeInstall:
+    - location: scripts/clean_repo.sh
+      timeout: 100
       runas: root
-    - location: scripts/startapache.sh
+    - location: scripts/stop_server.sh
+      timeout: 120
       runas: root
-   AfterInstall:
-    - location: scripts/restartapache.sh
+  ApplicationStart:
+    - location: scripts/start_server.sh
+      timeout: 120
       runas: root
 
